@@ -1,0 +1,25 @@
+[Unit]
+Description=RuneScape Dragonwilds Dedicated Server
+Wants=network-online.target
+After=network-online.target
+StartLimitIntervalSec=5min
+StartLimitBurst=3
+
+[Service]
+Type=simple
+User=dragonwilds
+Group=dragonwilds
+WorkingDirectory=/opt/dragonwilds
+StateDirectory=dragonwilds
+Environment=HOME=/var/lib/dragonwilds
+Environment=BOX64_DYNACACHE=1
+ExecStart=/opt/dragonwilds/runtime/box64 /opt/dragonwilds/RSDragonwilds/Binaries/Linux/RSDragonwildsServer-Linux-Shipping RSDragonwilds -log -port=@PORT@
+Restart=on-failure
+RestartSec=15s
+TimeoutStopSec=90s
+KillSignal=SIGINT
+LimitNOFILE=1048576
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

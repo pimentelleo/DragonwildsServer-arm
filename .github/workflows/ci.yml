@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  shell-syntax:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate shell syntax
+        run: |
+          bash -n install.sh update.sh uninstall.sh dwctl scripts/common.sh
+      - name: Validate the systemd template is rendered
+        run: |
+          rendered_unit="$(mktemp)"
+          sed 's/@PORT@/7777/g' templates/dragonwilds.service.in > "$rendered_unit"
+          test "$(grep -c '@PORT@' "$rendered_unit")" -eq 0
+          grep -Fqx 'ExecStart=/opt/dragonwilds/runtime/box64 /opt/dragonwilds/RSDragonwilds/Binaries/Linux/RSDragonwildsServer-Linux-Shipping RSDragonwilds -log -port=7777' "$rendered_unit"

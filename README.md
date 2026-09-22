@@ -46,7 +46,7 @@ DepotDownloader login.
 Clone the repository and run the interactive installer:
 
 ```bash
-git clone https://github.com/<your-account>/DragonwildsServer-arm.git
+git clone https://github.com/pimentelleo/DragonwildsServer-arm.git
 cd DragonwildsServer-arm
 sudo ./install.sh
 ```

@@ -6,7 +6,11 @@ SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/scripts/common.sh"
 
 require_root
-[[ -x "$DW_DOWNLOADER" ]] || die "DepotDownloader is missing. Re-run $SCRIPT_DIR/install.sh."
+if [[ ! -x "$DW_DOWNLOADER" ]]; then
+  warn 'DepotDownloader is missing; restoring the private ARM64 downloader.'
+  install_depotdownloader
+fi
+[[ -x "$DW_DOWNLOADER" ]] || die "DepotDownloader could not be restored: $DW_DOWNLOADER"
 [[ -x "$DW_BOX64" ]] || die "Box64 is missing. Re-run $SCRIPT_DIR/install.sh --rebuild-box64."
 port="$(configured_port)"
 

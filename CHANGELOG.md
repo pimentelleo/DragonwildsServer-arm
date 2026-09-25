@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Restore the private ARM64 DepotDownloader automatically when `update.sh`
+  finds it missing.
+
 ## 0.1.0 - 2026-09-22
 
 - Initial ARM64 Linux installer for RuneScape: Dragonwilds dedicated server.

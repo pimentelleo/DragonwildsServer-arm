@@ -137,7 +137,8 @@ sudo ./update.sh
 
 The updater stops the service, downloads the current public server build,
 restores required executable permissions, then restarts the service if it was
-running.
+running. If the private ARM64 DepotDownloader executable is absent, the updater
+restores it automatically before stopping the service.
 
 To rebuild the private Box64 runtime from current upstream source, rerun:
 
